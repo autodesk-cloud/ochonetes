@@ -1,6 +1,15 @@
+#
+# - simple container definition instantiating the paugamo/k8s-ec2-zookeeper image
+# - this is a simplified (platform agnostic) version of the k8s API
+# - please note you can pass free-form settings to your container as well (passed as a single serialized json
+#   variable named 'pod') !
+#
 cluster:  zookeeper
-image:    "paugamo/zookeeper"
+image:    "paugamo/k8s-ec2-zookeeper"
 settings:
+  hello:
+    world:  1234
+
 ports:
     - 2181
     - 2888
