@@ -1,0 +1,46 @@
+#
+# - this pod will be looked up by any running ochopod container running k8s bindinds
+# - it acts as a CLI portal and running a zookeeper isntance used by ochopod for its synchronization
+#   needs & leader elections
+#
+# - please note you *must* specify below what your master IP is as well as your credentials (this is temporary
+#   pending the ability to access the service API from within a running pod)
+#
+kind: Pod
+apiVersion: v1beta3
+metadata:
+  name: ocho-proxy
+spec:
+  containers:
+  - name: portal
+    image: "paugamo/portal:latest"
+
+    env:
+      - name:   ochopod_port
+        value:  "9001"
+
+      - name:   KUBERNETES_MASTER
+        value:  <YOUR MASTER IP>
+
+      - name:   KUBERNETES_USER
+        value:  <USER>
+
+      - name:   KUBERNETES_PWD
+        value:  <PASSWORD>
+
+    #
+    # - the web-shell listens on TCP 9000 and is bound to its host
+    # - set our ochopod i/o port at TCP 9001 to avoid colliding with the
+    #   other container
+    #
+    ports:
+        - containerPort: 9001
+        - containerPort: 9000
+          hostPort:      9000
+
+  - name: zookeeper
+    image: "tobegit3hub/standalone-zookeeper"
+    ports:
+        - containerPort: 2181
+        - containerPort: 2888
+        - containerPort: 3888

@@ -1,0 +1,7 @@
+cluster:  zookeeper
+image:    "paugamo/zookeeper"
+settings:
+ports:
+    - 2181
+    - 2888
+    - 3888
