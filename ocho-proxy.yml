@@ -13,7 +13,7 @@ metadata:
 spec:
   containers:
   - name: portal
-    image: "paugamo/portal:latest"
+    image: paugamo/k8s-ec2-portal
 
     env:
       - name:   ochopod_port
@@ -39,7 +39,7 @@ spec:
           hostPort:      9000
 
   - name: zookeeper
-    image: "tobegit3hub/standalone-zookeeper"
+    image: tobegit3hub/standalone-zookeeper
     ports:
         - containerPort: 2181
         - containerPort: 2888
