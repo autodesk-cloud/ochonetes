@@ -19,6 +19,7 @@ ________
 
    concepts
    portal
+   tools
 
 Indices and tables
 __________________
