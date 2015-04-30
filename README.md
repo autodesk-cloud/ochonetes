@@ -35,7 +35,7 @@ $ kubectl create -f ocho-proxy.yml
 
 Wait a bit until the pod is up and note the public IP it is running on. This IP will be the only thing you need to
 access from now on. You can easily firewall it depending on your needs. Simply use your browser and look the proxy
-node IP up on port 9000. You should see our little web-shell (notice to elegant ascii art).
+node IP up on port 9000. You should see our little web-shell (notice the elegant ascii art).
 
 ### Deploying your first container
 
