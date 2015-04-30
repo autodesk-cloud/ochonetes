@@ -2,15 +2,18 @@
 
 ### Overview
 
-This project is a small all-inclusive development PaaS leveraging [**Ochopod**](https://github.com/autodesk-cloud/ochopod)
+This project is a small development PaaS leveraging [**Ochopod**](https://github.com/autodesk-cloud/ochopod)
 and overlaying it on top of [**Kubernetes**](https://github.com/GoogleCloudPlatform/kubernetes).
 
-It provides a self-contained web-shell hosting our little toolkit that will allow you to create, query and manage your
-ochopod containers. It also lets you CURL your commands directly which is a great way to build your CI/CD pipeline !
+It provides a self-contained web-shell ([**JQuery**](https://jquery.com/) rocks !) hosting our little toolkit that will
+allow you to create, query and manage your ochopod containers. It also lets you CURL your commands directly which is
+a great way to build your CI/CD pipeline !
+
+Please note we only support bindings to run over AWS at this point.
 
 ### Getting started
 
-#### Step 1 : install Kubernetes
+#### Step 1 : install K8S on AWS
 
 You know how to do it. Just peruse their [**AWS guide**](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/getting-started-guides/aws.md)
 that will get you setup in minutes.
@@ -31,8 +34,8 @@ $ kubectl create -f ocho-proxy.yml
 ```
 
 Wait a bit until the pod is up and note the public IP it is running on. This IP will be the only thing you need to
-access from now on. You can easily firewall it depending on your needs. Simply use your browser and access the proxy
-node IP on TCP 9000. You should see our little web-shell.
+access from now on. You can easily firewall it depending on your needs. Simply use your browser and look the proxy
+node IP up on port 9000. You should see our little web-shell (notice to elegant ascii art).
 
 ### Deploying your first container
 
@@ -47,7 +50,7 @@ The deployment is done from your machine via a simple CURL:
 $ curl -X POST -H "X-Shell:deploy zk -p 3" -F "zk=@zookeeper.yml" http://<PROXY NODE IP>:9000/shell
 ```
 
-Peek into the web-console and look your new cluster up. For instance:
+Peek into the web-console and look your new ocho cluster up. For instance:
 
 ```
 > grep
@@ -60,10 +63,27 @@ default.zookeeper #1   |  10.244.1.39   |  stopped  |  follower
 default.zookeeper #2   |  10.244.2.105  |  stopped  |  follower
 ```
 
+Wait a bit for the cluster to settle and poof you will have a nice ensemble you can access at TCP 2181 !
+
+### Documentation
+
+You can [**peruse our online documentation**](http://autodesk-cloud.github.io/ochonetes/) for examples, design notes
+and more !
+
+The [**Sphinx**](http://sphinx-doc.org/) materials can be found under docs/. Just go in there and build for your
+favorite target, for instance:
+
+```
+$ cd docs
+$ make html
+```
+
+The docs will be written to _docs/_build/html_. This is all Sphinx based and you have many options and knobs to
+tweak should you want to customize the output.
+
 ### Support
 
 Contact autodesk.cloud.opensource@autodesk.com for more information about this project.
-
 
 ### License
 
