@@ -29,6 +29,10 @@ The response is a serialized JSON object featuring the raw stdout dump of whatev
 trivial to build a shallow CLI front-end on your end to interact with the remote shell. Any failure will set the *ok*
 boolean to false (e.g non-zero exit code from the tool process).
 
+.. note::
+
+    Some tools will require that one or more files be uploaded (**deploy** for instance).
+
 Using a browser
 ***************
 

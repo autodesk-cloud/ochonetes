@@ -74,6 +74,10 @@ and be wiped out as soon as the tool completes. Just use a regular multi-part up
 <p>The response is a serialized JSON object featuring the raw stdout dump of whatever tool you ran. It is thus quite
 trivial to build a shallow CLI front-end on your end to interact with the remote shell. Any failure will set the <em>ok</em>
 boolean to false (e.g non-zero exit code from the tool process).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Some tools will require that one or more files be uploaded (<strong>deploy</strong> for instance).</p>
+</div>
 </div>
 <div class="section" id="using-a-browser">
 <h3>Using a browser<a class="headerlink" href="#using-a-browser" title="Permalink to this headline">¶</a></h3>
