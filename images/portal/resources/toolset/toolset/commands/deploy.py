@@ -82,7 +82,7 @@ class _Automation(Thread):
                         'ochopod_cluster': cfg['cluster'],
                         'ochopod_namespace': self.namespace,
                         'ochopod_application': qualified,
-                        'pod': json.dumps(cfg['settings'])
+                        'pod': json.dumps(cfg['settings']) if 'settings' in cfg else '{}'
                     }
 
                 labels = \
@@ -118,8 +118,6 @@ class _Automation(Thread):
                             }
 
                     }
-
-                logger.info(controller)
 
                 #
                 # -

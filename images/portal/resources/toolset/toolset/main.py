@@ -78,6 +78,9 @@ def go():
         parser.add_argument('extra', metavar='extra arguments', type=str, nargs='*', help='zero or more arguments')
         args = parser.parse_args()
         total = [args.command] + args.extra
+        if args.command == 'help':
+            logger.info(_usage())
+            exit(0)
 
         def _sub(sub):
             for i in range(len(total)-len(sub)+1):

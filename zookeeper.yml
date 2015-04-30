@@ -5,7 +5,7 @@
 #   variable named 'pod') !
 #
 cluster:  zookeeper
-image:    "paugamo/k8s-ec2-zookeeper"
+image:    paugamo/k8s-ec2-zookeeper
 settings:
   hello:
     world:  1234
