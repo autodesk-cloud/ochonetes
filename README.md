@@ -30,12 +30,23 @@ We use a simple proxy mechanism to interact with our containers. Edit the provid
 the master IP and user credentials. Then create the pod:
 
 ```
-$ kubectl create -f ocho-proxy.yml
+$ kubernetes/cluster/kubectl.sh create -f ocho-proxy.yml
 ```
 
-Wait a bit until the pod is up and note the public IP it is running on. This IP will be the only thing you need to
-access from now on. You can easily firewall it depending on your needs. Simply use your browser and look the proxy
-node IP up on port 9000. You should see our little web-shell (notice the elegant ascii art).
+The _create_ will return immediately. Wait a bit until the pod is up and note the public IP it is running from. You
+can check the state of your pods at any time by doing:
+
+```
+$ kubernetes/cluster/kubectl.sh get pods
+```
+
+Look for _ocho-proxy_ and note its internal EC2 IP address (usually something like ```ip-172-20-0-11.ec2.internal```).
+Go in your AWS EC2 console and find out what minion matches it. What you want of course it the minion public IP (e.g
+the one you can reach from your workstation).
+
+This IP (or the corresponding hostname, whatever you prefer) will be the only thing you need to access from now on.
+You can easily firewall it depending on your needs. Simply use your browser and look the proxy node IP up on port 9000.
+You should see our little web-shell (notice the elegant ascii art).
 
 ### The CLI
 
@@ -45,13 +56,14 @@ installed locally:
 
 ```
 $ chmod +x cli.py
-$ ./cli.py <PROXY NODE IP>
+$ ./cli.py <PROXY IP>
 welcome to the ocho CLI ! (CTRL-C to exit)
 >
 ```
 
-Any command typed in that interactive session will be relayed to your proxy ! If you prefer to CURL directory you
-can do so as well.
+You can also set the $OCHOPOD_PROXY environment variable to avoid passing the proxy IP on the command line. Any command
+typed in that interactive session will be relayed to your proxy ! If you prefer to CURL directory you can do so as
+well.
 
 ### Deploying your first containers
 
@@ -68,8 +80,9 @@ Let us get going with the CLI:
 100% success / spawned 3 pod(s)
 ```
 
-This is it ! Your ensemble is booting. Wait a bit for the cluster to settle and poof you will have a nice ensemble
-you can access at TCP 2181 !
+This is it ! Your ensemble is now booting. Wait a bit for the cluster to settle (please keep in mind your minions
+will have to pull the image from the hub upon the very first run, this can take up to a minute) and poof you will have
+a nice ensemble you can access at TCP 2181 !
 
 ```
 > grep
