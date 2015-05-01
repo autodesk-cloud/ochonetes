@@ -66,7 +66,27 @@ typed in that interactive session will be relayed to your proxy ! If you prefer 
 well.
 
 The proxy supports a whole set of tools doing various things. Just type ```help``` in the CLI to get a list of what is
-there. Each tool also has supports a ```---help``` switch that will print out all the details you need to know.
+there. Each tool also has supports a ```---help``` switch that will print out all the details you need to know. As
+an example:
+
+```
+$ ./cli.py
+welcome to the ocho CLI ! (CTRL-C to exit)
+> help
+available commands -> deploy, grep, info, kill, log, ls, off, on
+
+> grep --help
+usage: ocho grep [-h] [-d] [clusters [clusters ...]]
+
+Displays high-level information for the specified cluster(s).
+
+positional arguments:
+  clusters     1+ clusters (can be a glob pattern, e.g foo*)
+
+optional arguments:
+  -h, --help   show this help message and exit
+  -d, --debug  debug mode
+```
 
 ### Deploying your first containers
 
