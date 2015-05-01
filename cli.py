@@ -60,11 +60,12 @@ def cli():
             raise KeyboardInterrupt
 
         def do_shell(self, line):
-            tokens = line.split(' ')
-            files = ['-F %s=@%s' % (token, token) for token in tokens if isfile(token)]
-            snippet = 'curl -X POST -H "X-Shell:%s" %s %s:9000/shell' % (line, ' '.join(files), ip)
-            code, out = self._exec(snippet)
-            print json.loads(out)['out'] if code is 0 else 'i/o failure (is the proxy down ?)'
+            if line:
+                tokens = line.split(' ')
+                files = ['-F %s=@%s' % (token, token) for token in tokens if isfile(token)]
+                snippet = 'curl -X POST -H "X-Shell:%s" %s %s:9000/shell' % (line, ' '.join(files), ip)
+                code, out = self._exec(snippet)
+                print json.loads(out)['out'] if code is 0 else 'i/o failure (is the proxy down ?)'
 
         def _exec(self, snippet):
             pid = Popen(snippet, shell=True, stdout=PIPE, stderr=PIPE)
