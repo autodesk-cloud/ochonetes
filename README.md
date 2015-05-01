@@ -9,7 +9,7 @@ It provides a self-contained web-shell ([**JQuery**](https://jquery.com/) rocks 
 allow you to create, query and manage your ochopod containers. It also lets you CURL your commands directly which is
 a great way to build your CI/CD pipeline !
 
-Please note we only support bindings to run over AWS at this point.
+Please note we **only support bindings to run over AWS** at this point.
 
 ### Getting started
 
@@ -37,12 +37,14 @@ Wait a bit until the pod is up and note the public IP it is running on. This IP 
 access from now on. You can easily firewall it depending on your needs. Simply use your browser and look the proxy
 node IP up on port 9000. You should see our little web-shell (notice the elegant ascii art).
 
-### Deploying your first container
+### Deploying your first containers
 
 Go ahead and use your new proxy to deploy a 3 node [**Zookeeper**](https://zookeeper.apache.org/) ensemble ! Look
 at the little ```zookeeper.yml```. This is the container definition you are going to send to the proxy for deployment.
 The proxy will then setup the corresponding k8s infrastructure (replication controller & pods) for you and ochopod will
 automatically cluster those pods into a functional cross-configured ensemble.
+
+If you are a nerd please have a look at ```images/zookeeper``` to see what is hiding in our image.
 
 The deployment is done from your machine via a simple CURL:
 

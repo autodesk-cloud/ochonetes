@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y oracle-java8-installer
 #
 # - setup zk 3.4.6 straight from their mirror
 #
+RUN apt-get -y install wget
 RUN wget -q -O - http://apache.mirrors.pair.com/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz | tar -C /opt -xz
 RUN mkdir /var/lib/zookeeper
 
