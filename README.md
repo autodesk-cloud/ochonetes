@@ -37,35 +37,52 @@ Wait a bit until the pod is up and note the public IP it is running on. This IP 
 access from now on. You can easily firewall it depending on your needs. Simply use your browser and look the proxy
 node IP up on port 9000. You should see our little web-shell (notice the elegant ascii art).
 
+### The CLI
+
+You are now all setup and can remotely issue commands to the proxy. Are you afraid of using CURL or feel lazy ? No
+problemo, use our little self-contained CLI ! You just need to have [**Python 2.7+**](https://www.python.org/)
+installed locally:
+
+```
+$ chmod +x cli.py
+$ ./cli.py <PROXY NODE IP>
+welcome to the ocho CLI ! (CTRL-C to exit)
+>
+```
+
+Any command typed in that interactive session will be relayed to your proxy ! If you prefer to CURL directory you
+can do so as well.
+
 ### Deploying your first containers
 
-Go ahead and use your new proxy to deploy a 3 node [**Zookeeper**](https://zookeeper.apache.org/) ensemble ! Look
-at the little ```zookeeper.yml```. This is the container definition you are going to send to the proxy for deployment.
+Go ahead and use the CLI to deploy a 3 node [**Zookeeper**](https://zookeeper.apache.org/) ensemble ! Look at the
+little ```zookeeper.yml```. This is the container definition you are going to send to the proxy for deployment.
 The proxy will then setup the corresponding k8s infrastructure (replication controller & pods) for you and ochopod will
-automatically cluster those pods into a functional cross-configured ensemble.
+automatically cluster those pods into a functional cross-configured ensemble. If you are a nerd please have a look at
+```images/zookeeper``` to see what is hiding in our image.
 
-If you are a nerd please have a look at ```images/zookeeper``` to see what is hiding in our image.
-
-The deployment is done from your machine via a simple CURL:
+Let us get going with the CLI:
 
 ```
-$ curl -X POST -H "X-Shell:deploy zk -p 3" -F "zk=@zookeeper.yml" http://<PROXY NODE IP>:9000/shell
+> deploy zookeeper.yml -p 3
+100% success / spawned 3 pod(s)
 ```
 
-Peek into the web-console and look your new ocho cluster up. For instance:
+This is it ! Your ensemble is booting. Wait a bit for the cluster to settle and poof you will have a nice ensemble
+you can access at TCP 2181 !
 
 ```
 > grep
-<*> -> 100% replies (4 pods total) ->
-cluster                |  pod IP        |  process  |  state
-                       |                |           |
-default.ocho-proxy #0  |  10.244.1.35   |  running  |  leader
-default.zookeeper #0   |  10.244.1.40   |  stopped  |  leader (configuration pending)
-default.zookeeper #1   |  10.244.1.39   |  stopped  |  follower
-default.zookeeper #2   |  10.244.2.105  |  stopped  |  follower
-```
 
-Wait a bit for the cluster to settle and poof you will have a nice ensemble you can access at TCP 2181 !
+<*> -> 100% replies (4 pods total) ->
+
+cluster                |  pod IP       |  process  |  state
+                       |               |           |
+default.ocho-proxy #0  |  10.244.1.5   |  running  |  leader
+default.zookeeper #0   |  10.244.1.30  |  running  |  leader
+default.zookeeper #1   |  10.244.1.31  |  running  |  follower
+default.zookeeper #2   |  10.244.2.12  |  running  |  follower
+```
 
 ### Documentation
 
