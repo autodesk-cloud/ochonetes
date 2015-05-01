@@ -61,9 +61,12 @@ welcome to the ocho CLI ! (CTRL-C to exit)
 >
 ```
 
-You can also set the $OCHOPOD_PROXY environment variable to avoid passing the proxy IP on the command line. Any command
+You can set the $OCHOPOD_PROXY environment variable to avoid passing the proxy IP on the command line. Any command
 typed in that interactive session will be relayed to your proxy ! If you prefer to CURL directory you can do so as
 well.
+
+The proxy supports a whole set of tools doing various things. Just type ```help``` in the CLI to get a list of what is
+there. Each tool also has supports a ```---help``` switch that will print out all the details you need to know.
 
 ### Deploying your first containers
 
