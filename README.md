@@ -9,7 +9,7 @@ It provides a self-contained web-shell ([**JQuery**](https://jquery.com/) rocks 
 allow you to create, query and manage your ochopod containers. It also lets you CURL your commands directly which is
 a great way to build your CI/CD pipeline !
 
-Please note we **only support bindings to run over AWS** at this point.
+Please note we **only support bindings to run over AWS** at this point. This project was tested with **Kubernetes 0.15**.
 
 ### Getting started
 
