@@ -55,9 +55,9 @@ class _Automation(Thread):
             # - workaround to fetch the master IP and credentials as there does not seem to
             #   be a way to use 10.0.0.2 from within the pod
             #
-            assert 'KUBERNETES_MASTER' in os.environ, '$KUBERNETES_MASTER not specified (check your portal pod)'
-            assert 'KUBERNETES_USER' in os.environ, '$KUBERNETES_USER not specified (check your portal pod)'
-            assert 'KUBERNETES_PWD' in os.environ, '$KUBERNETES_PWD not specified (check your portal pod)'
+            assert 'KUBERNETES_MASTER' in os.environ,   '$KUBERNETES_MASTER not specified (check your portal pod)'
+            assert 'KUBERNETES_USER' in os.environ,     '$KUBERNETES_USER not specified (check your portal pod)'
+            assert 'KUBERNETES_PWD' in os.environ,      '$KUBERNETES_PWD not specified (check your portal pod)'
 
             auth = HTTPBasicAuth(os.environ['KUBERNETES_USER'], os.environ['KUBERNETES_PWD'])
 
@@ -79,6 +79,9 @@ class _Automation(Thread):
 
                 env = \
                     {
+                        'KUBERNETES_MASTER': os.environ['KUBERNETES_MASTER'],
+                        'KUBERNETES_USER': os.environ['KUBERNETES_USER'],
+                        'KUBERNETES_PWD': os.environ['KUBERNETES_PWD'],
                         'ochopod_cluster': cfg['cluster'],
                         'ochopod_namespace': self.namespace,
                         'ochopod_application': qualified,
