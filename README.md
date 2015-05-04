@@ -9,8 +9,7 @@ It provides a self-contained web-shell ([**JQuery**](https://jquery.com/) rocks 
 allow you to create, query and manage your ochopod containers. It also lets you CURL your commands directly which is
 a great way to build your CI/CD pipeline !
 
-Please note we **only support bindings to run over AWS** at this point. This project was tested with
-**release 0.15**. Switching to 0.16 **will not work yet** as we rely on the RO service (working on it).
+Please note we **only support bindings to run over AWS** at this point. This project was tested with **release 0.16**.
 
 ### Getting started
 
@@ -19,16 +18,17 @@ Please note we **only support bindings to run over AWS** at this point. This pro
 You know how to do it. Just peruse their [**AWS guide**](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/getting-started-guides/aws.md)
 that will get you setup in minutes.
 
-Note what the master IP is and what your credentials. These can be found locally, for instance:
+Note what the master IP is and what your credentials. These can be found locally at the bottom of the ```config``` file
+that the installer created:
 
 ```
-$ cat ~/.kube/kubernetes/kubernetes_auth
+$ cat ~/.kube/config
 ```
 
 #### Step 2 : deploy our proxy
 
 We use a simple proxy mechanism to interact with our containers. Edit the provided ```ocho-proxy.yml``` and specify
-the master IP and user credentials. Then create the pod:
+the master IP (just the IP, not a URL) and user credentials. Then create the pod:
 
 ```
 $ kubernetes/cluster/kubectl.sh create -f ocho-proxy.yml
