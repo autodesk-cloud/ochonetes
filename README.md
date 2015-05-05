@@ -27,11 +27,10 @@ $ cat ~/.kube/config
 
 #### Step 2 : deploy our proxy
 
-We use a simple proxy mechanism to interact with our containers. Edit the provided ```ocho-proxy.yml``` and specify
-the master IP (just the IP, not a URL) and user credentials. Then create the pod:
+We use a simple proxy mechanism to interact with our containers which is deployed as a pod. To create the pod use the included create-ocho-proxy script:
 
 ```
-$ kubernetes/cluster/kubectl.sh create -f ocho-proxy.yml
+$ ./create-ocho-proxy ~/workspace/kubernetes 52.11.127.120 admin d8f7d9s8f7sd9
 ```
 
 The _create_ will return immediately. Wait a bit until the pod is up and note the public IP it is running from. You

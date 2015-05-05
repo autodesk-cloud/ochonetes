@@ -20,13 +20,13 @@ spec:
         value:  "9001"
 
       - name:   KUBERNETES_MASTER
-        value:  <YOUR MASTER IP>
+        value:  {KUBERNETES_MASTER}
 
       - name:   KUBERNETES_USER
-        value:  <USER>
+        value:  {KUBERNETES_USER}
 
       - name:   KUBERNETES_PWD
-        value:  <PASSWORD>
+        value:  {KUBERNETES_PWD}
 
     #
     # - the web-shell listens on TCP 9000 and is bound to its host
