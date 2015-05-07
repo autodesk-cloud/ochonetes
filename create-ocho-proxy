@@ -1,0 +1,41 @@
+#!/bin/bash
+#
+# Copyright (c) 2015 Autodesk Inc.
+# All rights reserved
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+if [ "$#" -ne 4 ]; then
+    echo "usage: `basename "$0"` [KUBERNETES_DIR] [KUBERNETES_MASTER] [KUBERNETES_USER] [KUBERNETES_PWD]"
+    exit 1
+fi
+
+KUBERNETES_DIR=$1
+KUBERNETES_MASTER=$2
+KUBERNETES_USER=$3
+KUBERNETES_PWD=$4
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+export KUBERNETES_PROVIDER=aws
+
+# render ocho-proxy yml file
+OCHO_PROXY_TEMPLATE=$DIR/ocho-proxy.yml.template
+OCHO_PROXY_FILE=$DIR/ocho-proxy-$KUBERNETES_MASTER.yml.bak
+sed -e "s/{KUBERNETES_MASTER}/$KUBERNETES_MASTER/g" \
+    -e "s/{KUBERNETES_USER}/$KUBERNETES_USER/g" \
+    -e "s/{KUBERNETES_PWD}/$KUBERNETES_PWD/g" \
+    $OCHO_PROXY_TEMPLATE > $OCHO_PROXY_FILE
+
+# create pod
+$KUBERNETES_DIR/cluster/kubectl.sh create -f $OCHO_PROXY_FILE
