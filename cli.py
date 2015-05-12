@@ -62,8 +62,9 @@ def cli():
         def do_shell(self, line):
             if line:
                 tokens = line.split(' ')
-                files = ['-F %s=@%s' % (token, token) for token in tokens if isfile(token)]
-                snippet = 'curl -X POST -H "X-Shell:%s" %s %s:9000/shell' % (line, ' '.join(files), ip)
+                files = ['-F %s=@%s' % (os.path.basename(token), os.path.expanduser(token)) for token in tokens if isfile(os.path.expanduser(token))]
+                new_line = ' '.join([os.path.basename(token) if isfile(os.path.expanduser(token)) else token for token in tokens])
+                snippet = 'curl -X POST -H "X-Shell:%s" %s %s:9000/shell' % (new_line, ' '.join(files), ip)
                 code, out = self._exec(snippet)
                 print json.loads(out)['out'] if code is 0 else 'i/o failure (is the proxy down ?)'
 
