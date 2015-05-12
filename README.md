@@ -11,6 +11,10 @@ a great way to build your CI/CD pipeline !
 
 Please note we **only support bindings to run over AWS** at this point. This project was tested with **release 0.16**.
 
+Please also note the rather clunky setup involving the admin password and master IP will be cleaned up as soon as I
+can get my hand on [**pull request 7101**](https://github.com/GoogleCloudPlatform/kubernetes/pull/7101) and fold in the
+concept of _service account_.
+
 ### Getting started
 
 #### Step 1 : install K8S on AWS
